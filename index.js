@@ -15,7 +15,21 @@ const server = http.createServer(app);
 const dotenv = require("dotenv").config({
   path: "./config.env",
 });
-const client = asyncRedis.createClient();
+
+const client = asyncRedis.createClient({
+  host: "redis-11310.c250.eu-central-1-1.ec2.cloud.redislabs.com",
+  port: 11310,
+  password: "pyUdqDh37SG2asWiALPEbLuCwm0LZMtS",
+});
+// const client = asyncRedis.createClient();
+
+client.on("error", function (err) {
+  console.log("Error " + err);
+});
+
+client.on("connect", function (err) {
+  console.log("Error " + err);
+});
 
 const io = require("socket.io")(server, {
   cors: {
