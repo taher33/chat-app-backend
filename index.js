@@ -17,9 +17,9 @@ const dotenv = require("dotenv").config({
 });
 
 const client = asyncRedis.createClient({
-  host: "redis-11310.c250.eu-central-1-1.ec2.cloud.redislabs.com",
-  port: 11310,
-  password: "pyUdqDh37SG2asWiALPEbLuCwm0LZMtS",
+  host: process.env.REDIS_ENDPOINT,
+  port: process.env.REDIS_PORT,
+  password: process.env.REDIS_PASS,
 });
 // const client = asyncRedis.createClient();
 
@@ -33,7 +33,10 @@ client.on("connect", function (err) {
 
 const io = require("socket.io")(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin:
+      process.env.ENVIRONMENT === "dev"
+        ? "http://localhost:3000"
+        : process.env.CLIENT,
     methods: ["GET", "POST"],
   },
 });
