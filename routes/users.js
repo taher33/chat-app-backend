@@ -4,7 +4,7 @@ const User = require("../models/users");
 const { hashPassword, comparePassword } = require("../utils/hashPassword");
 const router = express.Router();
 
-const client = redis.createClient();
+
 
 router.post("/signup", async (req, res, next) => {
   const { name, email, password } = req.body;
